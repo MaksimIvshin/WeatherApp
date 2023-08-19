@@ -59,9 +59,7 @@
 			children = (
 				921EA1102A8FA70B00DA359A /* WeatherAppApp.swift */,
 				921EA1122A8FA70B00DA359A /* ContentView.swift */,
-				921EA11E2A8FA92600DA359A /* WeatherData.swift */,
-				921EA1222A8FCBE100DA359A /* LocationManager.swift */,
-				921EA1242A8FD16500DA359A /* WeatherDataManager.swift */,
+				921EA12A2A911DEC00DA359A /* Models */,
 				921EA1142A8FA70D00DA359A /* Assets.xcassets */,
 				921EA1162A8FA70D00DA359A /* Preview Content */,
 			);
@@ -74,6 +72,16 @@
 				921EA1172A8FA70D00DA359A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		921EA12A2A911DEC00DA359A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				921EA11E2A8FA92600DA359A /* WeatherData.swift */,
+				921EA1222A8FCBE100DA359A /* LocationManager.swift */,
+				921EA1242A8FD16500DA359A /* WeatherDataManager.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeatherApp/Preview Content\"";
+				DEVELOPMENT_TEAM = H673XVCHPV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Location;
@@ -313,6 +322,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeatherApp/Preview Content\"";
+				DEVELOPMENT_TEAM = H673XVCHPV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = Location;

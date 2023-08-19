@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @StateObject var locationManager = LocationManager()
+    @StateObject var weatherDataManager = WeatherDataManager()
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            if let location = locationManager.location {
+                Text("Hello, world!\(location.coordinate.latitude), \(location.coordinate.longitude)")
+            }  else {
+                Text("error")
+            }
+            Button("Fetch weather") {
+                weatherDataManager.fetchData(forLocation: locationManager.location!)
+            }
         }
-        .padding()
+        .onAppear {
+            locationManager.requstLocation()
+        }
     }
 }
 

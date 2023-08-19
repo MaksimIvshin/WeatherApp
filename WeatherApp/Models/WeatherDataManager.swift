@@ -8,9 +8,8 @@
 import Foundation
 import CoreLocation
 
-class WeatherDataManager {
+class WeatherDataManager: ObservableObject {
     let apiKey = "b5a50c398a579b44871a884663a2845a"
-
 
     func fetchData(forLocation location: CLLocation) {
         let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&appid=\(apiKey)&units=metric"
