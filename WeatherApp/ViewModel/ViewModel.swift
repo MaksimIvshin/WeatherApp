@@ -15,6 +15,12 @@ class WeatherViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
 
     @Published var temperature: String = "-"
+    @Published var city: String = "-"
+    @Published var country: String = "-"
+    @Published var description: String = "-"
+    @Published var weatherIcon: String = Icons.defaultIcon
+    @Published var maxTemperature: String = "-"
+    @Published var feelsLike: String = "❓"
 
     init() {
         locationManager.$location
@@ -30,9 +36,14 @@ class WeatherViewModel: ObservableObject {
     }
 
     private func fetchWeatherData(forLocation location: CLLocation) {
-        weatherDataManager.fetchData(forLocation: location) { [weak self] weatherData in
+        weatherDataManager.fetchCurrentWeather(forLocation: location) { [weak self] weatherData in
             DispatchQueue.main.async {
-                self?.temperature = "\(weatherData.main.temp)" 
+                self?.temperature = "\(weatherData.main.temp.roundDouble())°"
+                self?.city = "\(weatherData.name) \(weatherData.sys.country)"
+                self?.country = weatherData.sys.country
+                self?.description = weatherData.weather.first?.description.capitalized ?? ""
+                self?.weatherIcon = Icons.icons[weatherData.weather.first?.main ?? ""] ?? Icons.defaultIcon
+
             }
         }
     }

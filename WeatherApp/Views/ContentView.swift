@@ -9,18 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @StateObject private var viewModel = WeatherViewModel()
 
 
     var body: some View {
-        VStack {
-            Button("Fetch weather") {
-                print(viewModel.temperature)
-            }
-        }
-        .onAppear{
-            viewModel.requestLocation()
-        }
+        TabView{
+
+            FirstView()
+                .tabItem {
+                    Image(systemName: "cloud.sun.fill")
+                    Text("Weather now")
+                }
+            SecondView()
+                .tabItem {
+                    Image(systemName: "star.square")
+                    Text("Favorite city")
+                }
+            Settings()
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Settings")
+                }
+        }.accentColor(Color.blue)
+          
     }
 }
 
