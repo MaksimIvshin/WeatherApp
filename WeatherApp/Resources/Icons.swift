@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Icons {
     static let defaultIcon: String = "❓"
@@ -17,5 +18,9 @@ struct Icons {
       "Clear": "☀️",
       "Clouds" : "☁️",
     ]
+//     Можно сделать фон?
+//    static let icons2 = [
+//      "Drizzle" : Image("One")
+//    ] as [String : Any]
 }
 
