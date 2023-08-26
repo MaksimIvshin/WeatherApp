@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//Раширение градиентный цвет для главного экрана
 extension Color {
     static let backgroundColorFirstView = LinearGradient(colors: [.blue, Color("lightBlue")], startPoint: .topLeading, endPoint: .bottomTrailing)
 }

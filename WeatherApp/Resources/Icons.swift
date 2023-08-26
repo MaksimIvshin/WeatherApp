@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SwiftUI
-
+//import SwiftUI
+//Структура иконок. Стандартная иконка при ошибке данных и словарь [String:String] для отображения полученных данных с сайта в виде иконки.
 struct Icons {
     static let defaultIcon: String = "❓"
     static let icons = [

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+//Данные о погоде на 7 дней
 struct SevenDaysWeatherData: Codable {
     let list: [List]
 }
@@ -19,6 +19,5 @@ struct Temp: Codable {
     let day: Double
 }
 struct WeatherSeven: Codable {
-    let id: Int
     let main: String
 }

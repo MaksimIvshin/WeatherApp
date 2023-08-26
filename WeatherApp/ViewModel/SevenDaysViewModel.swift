@@ -7,28 +7,38 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
 class SevenDaysViewModel: ObservableObject {
     let locationManager = LocationManager()
     let weatherDataManager = WeatherDataManager()
-    @Published var date: String = "-"
-    @Published var weatherIcon: String = Icons.defaultIcon
-    @Published var weekdays: [String] = ["Mon", "Thu", "Wed", "Thut", "Fri", "Sat", "Sun"]
-
-
-
-
-
+    //Массив для хранения подписок. Хранит подписки на изменения location.
+    var cancellables: Set<AnyCancellable> = []
+    //Данные о погоде будут автоматически обновляться при изменении значений.
+    @Published var weatherData: [List] = []
+    //Метод иницилизации класса
+    init() {
+        //Отслеживаем изменения свойства location
+        locationManager.$location
+        //Удаляем все значения nil
+            .compactMap { $0 }
+        //Устанавливаем подписку на изменения данных. Замыкание будет выполненно при каждом изменении loacation.
+            .sink { [weak self] location in
+                self?.sevenDaysFetchWeather(forLocation: location)
+            }
+        //Сохраняем подписки. Предотвращает автоматическую отмену подписок и утечки памяти.
+            .store(in: &cancellables)
+    }
+    //Метод запроса местоположения.
+    func requestLocation() {
+        locationManager.requstLocation()
+    }
+    //Метод для получения данных о погоде.
     func sevenDaysFetchWeather(forLocation location: CLLocation) {
         weatherDataManager.fetchSevenDaysWeather(forLocation: location) { [weak self] weatherData in
+            //Полученные данные будут присвоены weatherData и обновлены на главной очереди (т.к. UI).
             DispatchQueue.main.async {
-               
-                self?.date = "\(weatherData?.list.first?.dt ?? 0)"
-                if let newDate = weatherData?.list[2].dt {
-                    self?.date = Date.formattedDate(timestamp: newDate)
-                } else {
-                    self?.date = "-"
-                }
+                self?.weatherData = weatherData?.list ?? []
             }
         }
     }
