@@ -12,27 +12,36 @@
 //    @ObservedObject var sevenDaysViewModel: SevenDaysViewModel
 //
 //    var body: some View {
-//        ScrollView(.horizontal, showsIndicators: false) {
-//            LazyHStack(spacing: 20) {
-//                ForEach(1...7, id: \.self) { weekday in
-//                    VStack {
-//                        Text("\(sevenDaysViewModel.date)")
-//                        Text("\(sevenDaysViewModel.temperature)")
-//                        Text("\(sevenDaysViewModel.weatherIcon)")
-//
-//                    }.padding(5)
+//        VStack {
+//            Text("Weather forecat for 7 days")
+//            ScrollView(.horizontal, showsIndicators: false) {
+//                //Ленивый стек для меньшей загрузки памяти. Вычисления - по мере отображения на экране.
+//                LazyHStack(spacing: 20) {
+//                    //.id для для идентификации элементов в массиве.
+//                    ForEach(sevenDaysViewModel.weatherData, id: \.dt) { weather in
+//                        VStack {
+//                            Text("\(Date.formattedDate(date: weather.dt))")
+//                            Text("\(weather.temp.day.roundDouble())°")
+//                            Text("\(Icons.icons[weather.weather.first?.main ?? ""] ?? "" )")
+//                        }
+//                        .padding(10)
 //                        .frame(width: 100, height: 100)
 //                        .background(Color.blue.opacity(0.5))
 //                        .cornerRadius(10)
+//                    }
 //                }
 //            }
+//            .frame(maxHeight: 120)
+//            .padding(.leading, 30)
+//            .padding(.trailing, 30)
+//            Spacer()
 //        }
 //        .padding(.horizontal, 30)
 //
 //
 //        .onAppear{
 //            sevenDaysViewModel.requestLocation()
-//            print(sevenDaysViewModel.date)
+//
 //        }
 //    }
 //}

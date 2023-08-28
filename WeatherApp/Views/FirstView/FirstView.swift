@@ -34,11 +34,12 @@ struct FirstView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     //Ленивый стек для меньшей загрузки памяти. Вычисления - по мере отображения на экране.
                     LazyHStack(spacing: 20) {
+                        //.id для для идентификации элементов в массиве.
                         ForEach(sevenDaysViewModel.weatherData, id: \.dt) { weather in
                             VStack {
-                                Text("\(Date.formattedDate(date: weather.dt))")
+                                Date.isToday(date: weather.dt) ? Text("Today") : Text("\(Date.formattedDate(date: weather.dt))")
                                 Text("\(weather.temp.day.roundDouble())°")
-                                Text("\(Icons.icons[weather.weather.first?.main ?? ""] ?? "" )")
+                                Text("\(Icons.icons[weather.weather.first?.main ?? ""] ?? Icons.defaultIcon )")
                             }
                             .padding(10)
                             .frame(width: 100, height: 100)
