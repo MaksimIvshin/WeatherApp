@@ -37,7 +37,7 @@ class WeatherDataManager: ObservableObject {
             let weather = try? JSONDecoder().decode(CurrentWeatherData.self, from: data)
             if let weather = weather {
                 compltion(weather)
-                //print(weather)
+                print(weather)
                 //проверить почему вызывется 4 раза
             } else {
                 compltion(nil)

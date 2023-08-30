@@ -39,9 +39,8 @@ class CurrentWeatherViewModel: ObservableObject {
         weatherDataManager.fetchCurrentWeather(forLocation: location) { [weak self] weatherData in
             DispatchQueue.main.async {
                 //Полученные данные будут присвоены свойствам и обновлены на главной очереди (т.к. UI).
-                self?.temperature = "\(weatherData?.main.temp.roundDouble() ?? "")°"
                 self?.city = "\(weatherData?.name ?? "") \(weatherData?.sys.country ?? "")"
-                self?.country = weatherData?.sys.country ?? ""
+                self?.temperature = "\(weatherData?.main.temp.roundDouble() ?? "")°"
                 self?.description = weatherData?.weather.first?.description.capitalized ?? ""
                 self?.weatherIcon = Icons.icons[weatherData?.weather.first?.main ?? ""] ?? Icons.defaultIcon
             }

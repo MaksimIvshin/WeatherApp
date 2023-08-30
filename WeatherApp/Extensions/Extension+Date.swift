@@ -10,7 +10,7 @@ import Foundation
 extension Date {
     static func formattedDate(date: Int) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.dateFormat = "E"
         let date = Date(timeIntervalSince1970: TimeInterval(date))
         return dateFormatter.string(from: date)
     }
