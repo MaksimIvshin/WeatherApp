@@ -22,7 +22,7 @@ import CoreLocation
 class WeatherDataManager: ObservableObject {
     //Ключ доступа
     let apiKey = "b5a50c398a579b44871a884663a2845a"
-    let apiKeyForFiveDays = "ed60fcfbd110ee65c7150605ea8aceea"
+    let apiKeyAnother = "ed60fcfbd110ee65c7150605ea8aceea"
     //Получения данных о текущей погоде по локации. Принимает местоположение и замыкание, которое вызывается после получения данных о погоде.
     func fetchCurrentWeather(forLocation location: CLLocation, compltion: @escaping (CurrentWeatherData?)->Void) {
         let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&appid=\(apiKey)&units=metric"
@@ -46,7 +46,7 @@ class WeatherDataManager: ObservableObject {
     }
     //Получения данных о погоде на 7 дней по локации. Принимает местоположение и замыкание, которое вызывается после получения данных о погоде.
     func fetchSevenDaysWeather(forLocation location: CLLocation, compltion: @escaping (SevenDaysWeatherData?)->Void) {
-        let urlString = "https://api.openweathermap.org/data/2.5/forecast/daily?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&cnt=8&appid=\(apiKeyForFiveDays)&units=metric"
+        let urlString = "https://api.openweathermap.org/data/2.5/forecast/daily?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&cnt=8&appid=\(apiKeyAnother)&units=metric"
         guard let url = URL(string: urlString) else {
             compltion (nil)
             return
@@ -54,6 +54,23 @@ class WeatherDataManager: ObservableObject {
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard error == nil, let data = data else { return }
             let weather = try? JSONDecoder().decode(SevenDaysWeatherData.self, from: data)
+            if let weather = weather {
+                compltion(weather)
+            } else {
+                compltion(nil)
+            }
+        }.resume()
+    }
+
+    func cityNameDaysWeather(forCity city: String, compltion: @escaping (CityNameWeatherData?)->Void) {
+        let urlString = "https://api.openweathermap.org/data/2.5/forecast/daily?q=\(city)&cnt=1&appid=\(apiKeyAnother)&units=metric"
+        guard let url = URL(string: urlString) else {
+            compltion (nil)
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard error == nil, let data = data else { return }
+            let weather = try? JSONDecoder().decode(CityNameWeatherData.self, from: data)
             if let weather = weather {
                 compltion(weather)
             } else {
