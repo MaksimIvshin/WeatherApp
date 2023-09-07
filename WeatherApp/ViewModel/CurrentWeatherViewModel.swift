@@ -20,7 +20,7 @@ class CurrentWeatherViewModel: ObservableObject {
     @Published var country: String = "-"
     @Published var description: String = "-"
     @Published var weatherIcon: String = Icons.defaultIcon
-    //Метод иницилизации класса
+
     init() {
         //Отслеживаем изменения свойства location. Удаляем все значения nil. Устанавливаем подписку на изменения данных. Сохраняем подписки.
         locationManager.$location
