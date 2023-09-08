@@ -18,15 +18,12 @@ class SevenDaysViewModel: ObservableObject {
     @Published var weatherData: [List] = []
     //Метод иницилизации класса
     init() {
-        //Отслеживаем изменения свойства location
+        //Отслеживаем изменения свойства location. Удаляем все значения nil. Устанавливаем подписку на изменения данных. Сохраняем подписки.
         locationManager.$location
-        //Удаляем все значения nil
             .compactMap { $0 }
-        //Устанавливаем подписку на изменения данных. Замыкание будет выполненно при каждом изменении loacation.
             .sink { [weak self] location in
                 self?.sevenDaysFetchWeather(forLocation: location)
             }
-        //Сохраняем подписки. Предотвращает автоматическую отмену подписок и утечки памяти.
             .store(in: &cancellables)
     }
     //Метод запроса местоположения.

@@ -61,7 +61,7 @@ class WeatherDataManager: ObservableObject {
             }
         }.resume()
     }
-
+    //Получения данных о погоде по городу.
     func cityNameDaysWeather(forCity city: String, compltion: @escaping (CityNameWeatherData?)->Void) {
         let urlString = "https://api.openweathermap.org/data/2.5/forecast/daily?q=\(city)&cnt=1&appid=\(apiKeyAnother)&units=metric"
         guard let url = URL(string: urlString) else {
@@ -73,6 +73,7 @@ class WeatherDataManager: ObservableObject {
             let weather = try? JSONDecoder().decode(CityNameWeatherData.self, from: data)
             if let weather = weather {
                 compltion(weather)
+                print(weather)
             } else {
                 compltion(nil)
             }

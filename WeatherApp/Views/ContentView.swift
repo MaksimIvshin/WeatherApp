@@ -13,7 +13,6 @@ struct ContentView: View {
 
     var body: some View {
         TabView{
-
             FirstView()
                 .tabItem {
                     Image(systemName: "cloud.sun.fill")
@@ -30,7 +29,6 @@ struct ContentView: View {
                     Text("Settings")
                 }
         }.accentColor(Color.blue)
-
     }
 }
 
