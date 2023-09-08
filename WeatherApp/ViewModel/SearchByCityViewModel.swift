@@ -13,12 +13,12 @@ class SearchByCityViewModel: ObservableObject {
     @Published var tempNight: String = "-"
     @Published var weatherData: CityNameWeatherData?
     let weatherDataManager = WeatherDataManager()
-
+    
     func fetchWeatherData() {
         weatherDataManager.cityNameDaysWeather(forCity: cityName) { [weak self] data in
             DispatchQueue.main.async {
                 self?.weatherData = data
-                self?.tempDay = "\(data?.list.first?.temp.day ?? 0)"
+                self?.tempDay = "\(data?.list.first?.temp.day.roundDouble() ?? "")°"
             }
         }
     }
