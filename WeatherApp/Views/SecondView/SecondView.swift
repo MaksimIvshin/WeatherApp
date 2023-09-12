@@ -19,50 +19,68 @@ struct SecondView: View {
                 TextField("Enter your city", text: $searchByCityViewModel.cityName)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+
                 Button("Get weather") {
                     searchByCityViewModel.fetchWeatherData()
                     self.endEditing()
                     isShowingWeatherSheet = true
                 }
                 .foregroundColor(.white)
+                ScrollView {
+                    LazyVStack(spacing: 10) {
+                        ForEach(searchByCityViewModel.dataList.sorted(), id: \.self) { data in
+                            VStack {
+                                Text(data)
+                                    .foregroundColor(.white)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(10)
+                            .background(Color.blue.opacity(0.5))
+                            .cornerRadius(10)
+                        }
+                    }
+                    .padding()
+                }
                 Spacer()
             }
-//            VStack {
-//                if let weatherData = searchByCityViewModel.weatherData {
-//                    Text("City: \(weatherData.city.name)")
-//                    Text("Country: \(weatherData.city.country)")
-//                    Text("Temperature: \(searchByCityViewModel.tempDay)")
-//                }
-       //     }
         }
         .ignoresSafeArea(.all)
         .sheet(isPresented: $isShowingWeatherSheet) {
-                    // Содержимое для отображения в Sheet
-                    WeatherSheetView(viewModel: searchByCityViewModel)
-                }
-
+            WeatherSheetView(searchByCityViewModel: searchByCityViewModel)
+        }
+        .onAppear {
+            // При каждом появлении SecondView обновляем данные
+            searchByCityViewModel.objectWillChange.send()
+        }
     }
 }
 
 struct WeatherSheetView: View {
-    @ObservedObject var viewModel: SearchByCityViewModel
+    @ObservedObject var searchByCityViewModel: SearchByCityViewModel
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        ZStack{
+        ZStack {
             Color.backgroundColorThirdView
             VStack {
+                HStack {
+                    Spacer()
+                    Button("Add") {
+                        searchByCityViewModel.addDataToList()
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    .foregroundColor(.white)
+                    .padding(.trailing)
 
-                Text("City: \(viewModel.cityName)")
-                Text("Temperature: \(viewModel.tempDay)")
-
+                    .opacity(searchByCityViewModel.isDataAlreadyAdded ? 0 : 1)
                 }
+                Text("City: \(searchByCityViewModel.cityName)")
+                Text("Temperature: \(searchByCityViewModel.tempDay)")
+            }
         }
         .ignoresSafeArea(.all)
-
-        }
-
+    }
 }
-
 
 
 
