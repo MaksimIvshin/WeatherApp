@@ -16,11 +16,15 @@ class CurrentWeatherViewModel: ObservableObject {
     var cancellables: Set<AnyCancellable> = []
     //Cвойства являются наблюдаемыми и при изменении будут обновляться значения.
     @Published var temperature: String = "-"
+    @Published var feelsLike: String = "-"
+    @Published var windSpeed: String = "-"
+    @Published var humidity: String = "-"
+    @Published var visibility: String = "-"
     @Published var city: String = "-"
     @Published var country: String = "-"
     @Published var description: String = "-"
     @Published var weatherIcon: String = Icons.defaultIcon
-
+    // делаем bind
     init() {
         //Отслеживаем изменения свойства location. Удаляем все значения nil. Устанавливаем подписку на изменения данных. Сохраняем подписки.
         locationManager.$location
@@ -43,6 +47,10 @@ class CurrentWeatherViewModel: ObservableObject {
                 self?.temperature = "\(weatherData?.main.temp.roundDouble() ?? "")°"
                 self?.description = weatherData?.weather.first?.description.capitalized ?? ""
                 self?.weatherIcon = Icons.icons[weatherData?.weather.first?.main ?? ""] ?? Icons.defaultIcon
+                self?.feelsLike = "\(weatherData?.main.feels_like.roundDouble() ?? "")°"
+                self?.windSpeed = "\(weatherData?.wind.speed.roundDouble() ?? "") km/h"
+                self?.humidity = "\(weatherData?.main.humidity ?? 0) %"
+                self?.visibility = "\(weatherData?.visibility.metersToKilometrs() ?? 0) km"
             }
         }
     }

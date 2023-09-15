@@ -8,17 +8,6 @@
 import Foundation
 import CoreLocation
 
-//protocol Networking {
-//    func request(
-//                 forLocation location: CLLocation,
-//                 complition: @escaping (Data?, Error?) -> Void
-//    )
-//    func request2(
-//                 forLocation location: CLLocation,
-//                 complition: @escaping (Data?, Error?) -> Void
-//    )
-//}
-
 class WeatherDataManager: ObservableObject {
     //Ключ доступа
     let apiKey = "b5a50c398a579b44871a884663a2845a"
@@ -37,6 +26,7 @@ class WeatherDataManager: ObservableObject {
             let weather = try? JSONDecoder().decode(CurrentWeatherData.self, from: data)
             if let weather = weather {
                 compltion(weather)
+                print(weather)
             } else {
                 compltion(nil)
             }
