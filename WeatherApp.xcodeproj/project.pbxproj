@@ -28,6 +28,7 @@
 		921EA1482A976E8A00DA359A /* SevenDaysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EA1472A976E8A00DA359A /* SevenDaysViewModel.swift */; };
 		921EA14C2A977D8A00DA359A /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EA14B2A977D8A00DA359A /* WeatherDataManager.swift */; };
 		921EA14F2A9788FD00DA359A /* SevenDaysScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EA14E2A9788FD00DA359A /* SevenDaysScroll.swift */; };
+		92C13D902AB46E5700D9D1B3 /* Extension+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C13D8F2AB46E5700D9D1B3 /* Extension+Int.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		921EA1472A976E8A00DA359A /* SevenDaysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenDaysViewModel.swift; sourceTree = "<group>"; };
 		921EA14B2A977D8A00DA359A /* WeatherDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataManager.swift; sourceTree = "<group>"; };
 		921EA14E2A9788FD00DA359A /* SevenDaysScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenDaysScroll.swift; sourceTree = "<group>"; };
+		92C13D8F2AB46E5700D9D1B3 /* Extension+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Int.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 			children = (
 				921EA13C2A94D4B600DA359A /* Extension+Color.swift */,
 				921EA13F2A94EA4300DA359A /* Extension+Double.swift */,
+				92C13D8F2AB46E5700D9D1B3 /* Extension+Int.swift */,
 				921EA1432A9759BA00DA359A /* Extension+Date.swift */,
 				920E54032AAB0EDB005BE39F /* Extension+View.swift */,
 			);
@@ -269,6 +272,7 @@
 				921EA1382A94C75700DA359A /* SecondView.swift in Sources */,
 				921EA1132A8FA70B00DA359A /* ContentView.swift in Sources */,
 				920E54042AAB0EDB005BE39F /* Extension+View.swift in Sources */,
+				92C13D902AB46E5700D9D1B3 /* Extension+Int.swift in Sources */,
 				921EA1482A976E8A00DA359A /* SevenDaysViewModel.swift in Sources */,
 				920B33F32A9F6FC700F4417C /* CityNameWeatherData.swift in Sources */,
 				921EA14C2A977D8A00DA359A /* WeatherDataManager.swift in Sources */,

@@ -13,15 +13,15 @@ struct CurrentWeatherData: Codable {
     let wind: Wind
     let sys: Sys
     let name: String
-    let cod: Int
+    let visibility: Int
 }
 struct Main: Codable {
     let temp: Double
     let feels_like: Double
+    let humidity: Int
 }
 struct Sys: Codable {
     let country: String
-    let sunrise, sunset: Int
 }
 struct Weather: Codable {
     let description: String

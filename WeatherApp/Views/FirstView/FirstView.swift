@@ -28,9 +28,32 @@ struct FirstView: View {
                 }
                 Text("\(currentViewModel.description)")
                     .font(.title)
+                    .padding(.bottom, 20)
+                VStack{
+                    HStack(spacing: 50) {
+                        Image(systemName: "thermometer")
+                            .font(.system(size: 40))
+                        Image(systemName: "wind")
+                            .font(.system(size: 40))
+                        Image(systemName: "drop")
+                            .font(.system(size: 40))
+                        Image(systemName: "eye")
+                            .font(.system(size: 40))
+                    }
+                    .padding(10)
+                    HStack(spacing: 50) {
+                        Text("\(currentViewModel.feelsLike)")
+                        Text("\(currentViewModel.windSpeed)")
+                        Text("\(currentViewModel.humidity)")
+                        Text("\(currentViewModel.visibility)")
+                    }
+                }
+                .frame(width: 380, height: 150)
+                .background(Color.blue.opacity(0.5))
+                .cornerRadius(10)
                 Spacer()
             }
-            .padding(.top, 200)
+            .padding(.top, 100)
             SevenDaysScroll(sevenDaysViewModel: sevenDaysViewModel)
                 .padding(.top, 600)
         }
