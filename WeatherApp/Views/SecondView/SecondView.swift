@@ -19,7 +19,8 @@ struct SecondView: View {
                 TextField("Enter your city", text: $searchByCityViewModel.cityName)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button("Get weather") {
                     searchByCityViewModel.fetchWeatherData()
                     self.endEditing()
@@ -28,7 +29,7 @@ struct SecondView: View {
                 .foregroundColor(.white)
                 ScrollView {
                     LazyVStack(spacing: 10) {
-                        ForEach(searchByCityViewModel.dataList.sorted(), id: \.self) { data in
+                        ForEach(searchByCityViewModel.dataArray.sorted(), id: \.self) { data in
                             VStack {
                                 Text(data)
                                     .foregroundColor(.white)
@@ -51,6 +52,9 @@ struct SecondView: View {
         .onAppear {
             // При каждом появлении SecondView обновляем данные
             searchByCityViewModel.objectWillChange.send()
+            if !searchByCityViewModel.dataArray.isEmpty {
+                searchByCityViewModel.fetchWeatherDataForCities()
+            }
         }
     }
 }
@@ -60,28 +64,37 @@ struct WeatherSheetView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        ZStack {
-            Color.backgroundColorThirdView
-            VStack {
-                HStack {
-                    Spacer()
-                    Button("Add") {
-                        searchByCityViewModel.addDataToList()
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                    .foregroundColor(.white)
-                    .padding(.trailing)
-
-                    .opacity(searchByCityViewModel.isDataAlreadyAdded ? 0 : 1)
+        NavigationView {
+            ZStack {
+                Color.backgroundColorSecondView
+                VStack {
+                    Text("City: \(searchByCityViewModel.cityName)")
+                    Text("Temp max: \(searchByCityViewModel.tempMax)")
+                    Text("Temp min: \(searchByCityViewModel.tempMin)")
                 }
-                Text("City: \(searchByCityViewModel.cityName)")
-                Text("Temperature: \(searchByCityViewModel.tempDay)")
-            }
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle(Text("Weather Details"))
+                .navigationBarItems(
+                    leading: Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.white)
+                    },
+                    trailing: Button(action: {
+                        searchByCityViewModel.addDataToSet()
+                        presentationMode.wrappedValue.dismiss()
+                        searchByCityViewModel.resetCityName()
+                    }) {
+                        Text("Add")
+                            .foregroundColor(.white)
+                    }
+                        .opacity(searchByCityViewModel.isDataAlreadyAdded ? 0 : 1)
+                )
+            }    .ignoresSafeArea(.all)
         }
-        .ignoresSafeArea(.all)
     }
 }
-
 
 
 struct SecondView_Previews: PreviewProvider {
