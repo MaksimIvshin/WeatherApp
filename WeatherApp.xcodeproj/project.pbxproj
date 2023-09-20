@@ -28,6 +28,7 @@
 		921EA1482A976E8A00DA359A /* SevenDaysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EA1472A976E8A00DA359A /* SevenDaysViewModel.swift */; };
 		921EA14C2A977D8A00DA359A /* WeatherDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EA14B2A977D8A00DA359A /* WeatherDataManager.swift */; };
 		921EA14F2A9788FD00DA359A /* SevenDaysScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921EA14E2A9788FD00DA359A /* SevenDaysScroll.swift */; };
+		92B572612AB4952700D1DEDC /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B572602AB4952700D1DEDC /* WelcomeView.swift */; };
 		92C13D902AB46E5700D9D1B3 /* Extension+Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C13D8F2AB46E5700D9D1B3 /* Extension+Int.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		921EA1472A976E8A00DA359A /* SevenDaysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenDaysViewModel.swift; sourceTree = "<group>"; };
 		921EA14B2A977D8A00DA359A /* WeatherDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataManager.swift; sourceTree = "<group>"; };
 		921EA14E2A9788FD00DA359A /* SevenDaysScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenDaysScroll.swift; sourceTree = "<group>"; };
+		92B572602AB4952700D1DEDC /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		92C13D8F2AB46E5700D9D1B3 /* Extension+Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Int.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +138,7 @@
 		921EA1322A93D1EF00DA359A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				92B572602AB4952700D1DEDC /* WelcomeView.swift */,
 				921EA1122A8FA70B00DA359A /* ContentView.swift */,
 				921EA14D2A9788E400DA359A /* FirstView */,
 				920E54002AA9F985005BE39F /* SecondView */,
@@ -276,6 +279,7 @@
 				921EA1482A976E8A00DA359A /* SevenDaysViewModel.swift in Sources */,
 				920B33F32A9F6FC700F4417C /* CityNameWeatherData.swift in Sources */,
 				921EA14C2A977D8A00DA359A /* WeatherDataManager.swift in Sources */,
+				92B572612AB4952700D1DEDC /* WelcomeView.swift in Sources */,
 				921EA11F2A8FA92600DA359A /* CurrentWeatherData.swift in Sources */,
 				921EA1112A8FA70B00DA359A /* WeatherAppApp.swift in Sources */,
 				921EA13A2A94C75F00DA359A /* Settings.swift in Sources */,
