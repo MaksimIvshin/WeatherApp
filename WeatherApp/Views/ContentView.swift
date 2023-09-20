@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-
-
-
     var body: some View {
         TabView{
             FirstView()
@@ -23,11 +20,11 @@ struct ContentView: View {
                     Image(systemName: "star.square")
                     Text("Favorite city")
                 }
-            Settings()
-                .tabItem {
-                    Image(systemName: "gear")
-                    Text("Settings")
-                }
+            //            Settings()
+            //                .tabItem {
+            //                    Image(systemName: "gear")
+            //                    Text("Settings")
+            //                }
         }.accentColor(Color.blue)
     }
 }
