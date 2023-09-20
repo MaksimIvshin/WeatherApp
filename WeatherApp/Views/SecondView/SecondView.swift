@@ -10,6 +10,7 @@ import SwiftUI
 struct SecondView: View {
     @StateObject private var searchByCityViewModel = SearchByCityViewModel()
     @State private var isShowingWeatherSheet = false
+    @State private var isShowAlert = false
 
     var body: some View {
         ZStack {
@@ -17,27 +18,49 @@ struct SecondView: View {
             VStack {
                 Spacer().frame(height: 100)
                 TextField("Enter your city", text: $searchByCityViewModel.cityName)
+                    .foregroundColor(Color.black)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button("Get weather") {
-                    searchByCityViewModel.fetchWeatherData()
-                    self.endEditing()
-                    isShowingWeatherSheet = true
+                    if searchByCityViewModel.cityName.isEmpty {
+                        isShowAlert = true
+                    } else {
+                        searchByCityViewModel.fetchWeatherData()
+                        isShowingWeatherSheet = true
+                        isShowAlert = false
+                        self.endEditing()
+                    }
                 }
-                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .frame(height: 40)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.white, lineWidth: 1))
+                .alert(isPresented: $isShowAlert) {
+                    Alert(title: Text("Sorry!"), message: Text("Please enter the city"), dismissButton: .default(Text("OK")))
+                }
                 ScrollView {
                     LazyVStack(spacing: 10) {
                         ForEach(searchByCityViewModel.dataArray.sorted(), id: \.self) { data in
                             VStack {
                                 Text(data)
+                                    .font(.title2)
                                     .foregroundColor(.white)
                             }
                             .frame(maxWidth: .infinity)
                             .padding(10)
                             .background(Color.blue.opacity(0.5))
                             .cornerRadius(10)
+                            .contextMenu {
+                                Button(action: {
+                                    searchByCityViewModel.removeData(data)
+                                }) {
+                                    Label("Remove", systemImage: "trash")
+                                }
+                            }
                         }
                     }
                     .padding()
@@ -45,6 +68,7 @@ struct SecondView: View {
                 Spacer()
             }
         }
+        .foregroundColor(.white)
         .ignoresSafeArea(.all)
         .sheet(isPresented: $isShowingWeatherSheet) {
             WeatherSheetView(searchByCityViewModel: searchByCityViewModel)
@@ -58,44 +82,6 @@ struct SecondView: View {
         }
     }
 }
-
-struct WeatherSheetView: View {
-    @ObservedObject var searchByCityViewModel: SearchByCityViewModel
-    @Environment(\.presentationMode) var presentationMode
-
-    var body: some View {
-        NavigationView {
-            ZStack {
-                Color.backgroundColorSecondView
-                VStack {
-                    Text("City: \(searchByCityViewModel.cityName)")
-                    Text("Temp max: \(searchByCityViewModel.tempMax)")
-                    Text("Temp min: \(searchByCityViewModel.tempMin)")
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarTitle(Text("Weather Details"))
-                .navigationBarItems(
-                    leading: Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                    },
-                    trailing: Button(action: {
-                        searchByCityViewModel.addDataToSet()
-                        presentationMode.wrappedValue.dismiss()
-                        searchByCityViewModel.resetCityName()
-                    }) {
-                        Text("Add")
-                            .foregroundColor(.white)
-                    }
-                        .opacity(searchByCityViewModel.isDataAlreadyAdded ? 0 : 1)
-                )
-            }    .ignoresSafeArea(.all)
-        }
-    }
-}
-
 
 struct SecondView_Previews: PreviewProvider {
     static var previews: some View {

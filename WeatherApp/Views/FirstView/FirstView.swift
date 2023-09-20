@@ -32,14 +32,11 @@ struct FirstView: View {
                 VStack{
                     HStack(spacing: 50) {
                         Image(systemName: "thermometer")
-                            .font(.system(size: 40))
                         Image(systemName: "wind")
-                            .font(.system(size: 40))
                         Image(systemName: "drop")
-                            .font(.system(size: 40))
                         Image(systemName: "eye")
-                            .font(.system(size: 40))
                     }
+                    .font(.system(size: 40))
                     .padding(10)
                     HStack(spacing: 50) {
                         Text("\(currentViewModel.feelsLike)")

@@ -17,6 +17,7 @@ struct SplashScreen: View {
     var body: some View {
         if isActive {
             ContentView()
+                .preferredColorScheme(.light)
         } else {
             ZStack {
                 Color.white

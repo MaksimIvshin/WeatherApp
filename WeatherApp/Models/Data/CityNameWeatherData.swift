@@ -32,7 +32,7 @@ struct List2: Codable {
     let temp: Temp2
 //    let feelsLike: FeelsLike
 //    let humidity: Int
-////    let weather: [Weather2]
+    let weather: [Weather2]
 //    let speed: Double
 //    let deg: Int
 //    let gust: Double
@@ -50,7 +50,7 @@ struct Temp2: Codable {
 //    let morn: Double
 }
 //
-//struct Weather2: Codable {
+struct Weather2: Codable {
 //    let id: Int
-//    let main, description, icon: String
-//}
+    let main, description, icon: String
+}
