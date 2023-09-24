@@ -13,14 +13,15 @@ class SearchByCityViewModel: ObservableObject {
     @Published var tempMin: String = "-"
     @Published var weatherIcon: String = Icons.defaultIcon
     @Published var isDataAlreadyAdded: Bool = false
-    @Published var dataArray: [String] = []
     @Published var weatherData: CityNameWeatherData?
 
-    let weatherDataManager = WeatherDataManager()
+    private let coreDataManager = CoreDataManager()
+    private let weatherDataManager = WeatherDataManager()
 
     func fetchWeatherData() {
-        isDataAlreadyAdded = dataArray.contains {
-            $0.contains("\(cityName)")
+        let existingCities = coreDataManager.getAllCity()
+        isDataAlreadyAdded = existingCities.contains { city in
+            city.cityName == cityName
         }
         weatherDataManager.cityNameDaysWeather(forCity: cityName) { [weak self] data in
             DispatchQueue.main.async {
@@ -31,40 +32,22 @@ class SearchByCityViewModel: ObservableObject {
         }
     }
 
-    func fetchWeatherDataForCities() {
-        for (index, data) in dataArray.enumerated() {
-            let components = data.components(separatedBy: ", ")
-            if components.count == 2 {
-                let cityName = components[0].replacingOccurrences(of: "City: ", with: "")
-                let temperature = components[1].replacingOccurrences(of: "Temperature: ", with: "")
-                weatherDataManager.cityNameDaysWeather(forCity: cityName) { [weak self] weatherData in
-                    let tempDay = weatherData?.list.first?.temp.max.roundDouble() ?? ""
-                    if temperature != tempDay {
-                        let newData = "City: \(cityName), Temperature: \(tempDay)"
-                        DispatchQueue.main.async {
-                            self?.dataArray[index] = newData
-                        }
-                    }
-                }
-            }
-        }
+    func getAllCityData() -> [CityWeather] {
+        return coreDataManager.getAllCity().reversed()
     }
 
-    func removeData(_ data: String) {
-        dataArray.removeAll(where: { $0 == data })
+    func deleteCity(city: CityWeather) {
+        coreDataManager.deleteCity(city: city)
     }
-
     // Обнуляем данные в текстовом поле
     func resetCityName() {
         cityName = ""
     }
-    
-    func addDataToSet() {
-        let newData = "\(cityName) \(weatherIcon), max: \(tempMax), min: \(tempMin) "
-        if !dataArray.contains(newData) {
-            dataArray.append(newData)
-        } else {
-            isDataAlreadyAdded = true
-        }
+
+    func saveData() {
+        coreDataManager.saveCityWeather(cityName: cityName,
+                                        tempMax: tempMax,
+                                        tempMin: tempMin,
+                                        weatherIcon: weatherIcon)
     }
 }

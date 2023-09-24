@@ -26,7 +26,6 @@ class WeatherDataManager: ObservableObject {
             let weather = try? JSONDecoder().decode(CurrentWeatherData.self, from: data)
             if let weather = weather {
                 compltion(weather)
-                print(weather)
             } else {
                 compltion(nil)
             }
@@ -61,7 +60,6 @@ class WeatherDataManager: ObservableObject {
             let weather = try? JSONDecoder().decode(CityNameWeatherData.self, from: data)
             if let weather = weather {
                 compltion(weather)
-                print(weather)
             } else {
                 compltion(nil)
             }

@@ -25,6 +25,7 @@ struct SecondView: View {
                 Button("Get weather") {
                     if searchByCityViewModel.cityName.isEmpty {
                         isShowAlert = true
+                        self.endEditing()
                     } else {
                         searchByCityViewModel.fetchWeatherData()
                         isShowingWeatherSheet = true
@@ -40,15 +41,29 @@ struct SecondView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.white, lineWidth: 1))
                 .alert(isPresented: $isShowAlert) {
-                    Alert(title: Text("Sorry!"), message: Text("Please enter the city"), dismissButton: .default(Text("OK")))
-                }
+                    Alert(title: Text("Sorry!"), message: Text("Please enter the city"), dismissButton: .default(Text("OK")))}
                 ScrollView {
                     LazyVStack(spacing: 10) {
-                        ForEach(searchByCityViewModel.dataArray.sorted(), id: \.self) { data in
+                        ForEach(searchByCityViewModel.getAllCityData(), id: \.self) { cityWeather in
                             VStack {
-                                Text(data)
-                                    .font(.title2)
-                                    .foregroundColor(.white)
+                                HStack {
+                                    VStack {
+                                        Text(cityWeather.cityName ?? "")
+                                            .font(.system(size: 40))
+                                    }
+                                    Spacer()
+                                    VStack {
+                                        Text(cityWeather.weatherIcon ?? "")
+                                            .font(.system(size: 30))
+                                        HStack{
+                                            Text("Max: \(cityWeather.tempMax ?? "")")
+                                                .font(.system(size: 15))
+                                            Text("Min: \(cityWeather.tempMin ?? "")")
+                                                .font(.system(size: 15))
+                                        }
+                                    }
+                                    .padding(.trailing, 10)
+                                }
                             }
                             .frame(maxWidth: .infinity)
                             .padding(10)
@@ -56,7 +71,8 @@ struct SecondView: View {
                             .cornerRadius(10)
                             .contextMenu {
                                 Button(action: {
-                                    searchByCityViewModel.removeData(data)
+                                    searchByCityViewModel.deleteCity(city: cityWeather)
+                                    searchByCityViewModel.fetchWeatherData()
                                 }) {
                                     Label("Remove", systemImage: "trash")
                                 }
@@ -65,6 +81,7 @@ struct SecondView: View {
                     }
                     .padding()
                 }
+                .padding(.bottom, 80)
                 Spacer()
             }
         }
@@ -76,9 +93,6 @@ struct SecondView: View {
         .onAppear {
             // При каждом появлении SecondView обновляем данные
             searchByCityViewModel.objectWillChange.send()
-            if !searchByCityViewModel.dataArray.isEmpty {
-                searchByCityViewModel.fetchWeatherDataForCities()
-            }
         }
     }
 }
