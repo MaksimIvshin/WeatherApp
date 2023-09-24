@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeatherSheetView: View {
     @ObservedObject var searchByCityViewModel: SearchByCityViewModel
+    @EnvironmentObject var coreDataManager: CoreDataManager
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -31,16 +32,18 @@ struct WeatherSheetView: View {
                 .navigationBarItems(
                     leading: Button(action: {
                         presentationMode.wrappedValue.dismiss()
+                        searchByCityViewModel.resetCityName()
                     }) {
                         Image(systemName: "chevron.left")
                     },
                     trailing: Button(action: {
-                        searchByCityViewModel.addDataToSet()
+                        searchByCityViewModel.saveData()
                         presentationMode.wrappedValue.dismiss()
                         searchByCityViewModel.resetCityName()
                     }) {
                         Text("Add")
                     }
+                        .disabled(searchByCityViewModel.isDataAlreadyAdded)
                         .opacity(searchByCityViewModel.isDataAlreadyAdded ? 0 : 1)
                 )
             }    .ignoresSafeArea(.all)
