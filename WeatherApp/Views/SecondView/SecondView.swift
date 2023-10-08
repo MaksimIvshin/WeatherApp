@@ -92,6 +92,7 @@ struct SecondView: View {
         }
         .onAppear {
             // При каждом появлении SecondView обновляем данные
+            searchByCityViewModel.fetchWeatherData()
             searchByCityViewModel.objectWillChange.send()
         }
     }

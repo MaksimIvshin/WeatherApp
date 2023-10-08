@@ -37,11 +37,21 @@ class CoreDataManager: ObservableObject {
         cityWeather.tempMax = tempMax
         cityWeather.tempMin = tempMin
         cityWeather.weatherIcon = weatherIcon
-
         do {
             try context.save()
         } catch {
             print("Failed to save city weather data: \(error)")
+        }
+    }
+
+    func saveContextIfChange() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 
