@@ -28,6 +28,27 @@ class SearchByCityViewModel: ObservableObject {
                 self?.tempMax = ("\(data?.list.first?.temp.max.roundDouble() ?? "")°")
                 self?.tempMin = ("\(data?.list.first?.temp.min.roundDouble() ?? "")°")
                 self?.weatherIcon = Icons.icons[data?.list.first?.weather.first?.main ?? ""] ?? Icons.defaultIcon
+                self?.updateCityWeatherData()
+            }
+        }
+    }
+
+    func updateCityWeatherData() {
+        let existingCities = coreDataManager.getAllCity()
+        let dispatchGroup = DispatchGroup()
+        existingCities.forEach { existingCity in
+            dispatchGroup.enter()
+            weatherDataManager.cityNameDaysWeather(forCity: existingCity.cityName ?? "") { [weak self] data in
+                DispatchQueue.main.async {
+                    if let index = self?.cityWeatherData.firstIndex(where: { $0.cityName == existingCity.cityName }) {
+                        existingCity.tempMax = data?.list.first?.temp.max.roundDouble() ?? ""
+                        existingCity.tempMin = data?.list.first?.temp.min.roundDouble() ?? ""
+                        existingCity.weatherIcon = Icons.icons[data?.list.first?.weather.first?.main ?? ""] ?? Icons.defaultIcon
+                        self?.cityWeatherData[index] = existingCity
+                        self?.coreDataManager.saveContextIfChange()
+                    }
+                    dispatchGroup.leave()
+                }
             }
         }
     }
