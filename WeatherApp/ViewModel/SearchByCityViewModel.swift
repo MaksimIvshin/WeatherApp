@@ -14,7 +14,7 @@ class SearchByCityViewModel: ObservableObject {
     @Published var weatherIcon: String = Icons.defaultIcon
     @Published var isDataAlreadyAdded: Bool = false
     @Published var weatherData: CityNameWeatherData?
-
+    @Published var cityWeatherData: [CityWeather] = []
     private let coreDataManager = CoreDataManager()
     private let weatherDataManager = WeatherDataManager()
 
