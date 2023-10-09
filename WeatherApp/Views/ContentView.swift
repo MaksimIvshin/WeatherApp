@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+// TabView for the navigation in the app.
 struct ContentView: View {
     var body: some View {
         TabView{

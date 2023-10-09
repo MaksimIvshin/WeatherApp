@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 
 class CoreDataManager: ObservableObject {
-
+    // Create the database property CoreData.
     let persistentContainer: NSPersistentContainer
-
+    // Initialize CoreDataManager and load database storage.
     init() {
         persistentContainer = NSPersistentContainer(name: "CityWeatherDataModel")
         persistentContainer.loadPersistentStores { (description, error) in
@@ -20,16 +20,16 @@ class CoreDataManager: ObservableObject {
             }
         }
     }
-
+    // Getting all cities.
     func getAllCity() -> [CityWeather] {
         let fetchRequest: NSFetchRequest<CityWeather> = CityWeather.fetchRequest()
         do {
-          return try persistentContainer.viewContext.fetch(fetchRequest)
+            return try persistentContainer.viewContext.fetch(fetchRequest)
         } catch {
             return []
         }
     }
-
+    // Save data about the city's weather.
     func saveCityWeather(cityName: String, tempMax: String, tempMin: String, weatherIcon: String) {
         let context = persistentContainer.viewContext
         let cityWeather = CityWeather(context: context)
@@ -43,7 +43,7 @@ class CoreDataManager: ObservableObject {
             print("Failed to save city weather data: \(error)")
         }
     }
-
+    // Save changes in the CoreData context, if the are.
     func saveContextIfChange() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -54,7 +54,7 @@ class CoreDataManager: ObservableObject {
             }
         }
     }
-
+    // Deleting a city weather.
     func deleteCity(city: CityWeather) {
         persistentContainer.viewContext.delete(city)
         do {
@@ -64,4 +64,5 @@ class CoreDataManager: ObservableObject {
             print(error)
         }
     }
+    
 }

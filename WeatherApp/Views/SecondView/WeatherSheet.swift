@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-
+// Additional information sheet.
 struct WeatherSheetView: View {
     @ObservedObject var searchByCityViewModel: SearchByCityViewModel
     @EnvironmentObject var coreDataManager: CoreDataManager
+    // Property for closing sheet.
     @Environment(\.presentationMode) var presentationMode
-    
     var body: some View {
         NavigationView {
             ZStack {
@@ -43,6 +43,7 @@ struct WeatherSheetView: View {
                     }) {
                         Text("Add")
                     }
+                    // Disable the button if data has already been added.
                         .disabled(searchByCityViewModel.isDataAlreadyAdded)
                         .opacity(searchByCityViewModel.isDataAlreadyAdded ? 0 : 1)
                 )

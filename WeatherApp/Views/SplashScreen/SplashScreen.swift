@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-
+// Splash screen.
 struct SplashScreen: View {
+    // State property to track home screen activity.
     @State var isActive: Bool = false
     @State private var size = 0.8
     @State private var opacity = 0.5
-    @StateObject private var currentViewModel = CurrentWeatherViewModel()
-    @StateObject private var sevenDaysViewModel = SevenDaysViewModel()
-
+    @ObservedObject private var currentViewModel = CurrentWeatherViewModel()
+    @ObservedObject private var sevenDaysViewModel = SevenDaysViewModel()
     var body: some View {
         if isActive {
             ContentView()

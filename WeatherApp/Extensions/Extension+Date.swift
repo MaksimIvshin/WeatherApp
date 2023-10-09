@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//Расширение для даты и преобразовани в строку в формате: дня и месяца.
+// Сonverting the date to the string in the format: day and month. Also check is it today.
 extension Date {
     static func formattedDate(date: Int) -> String {
         let dateFormatter = DateFormatter()
