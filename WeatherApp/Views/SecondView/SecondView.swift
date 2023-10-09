@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
-
+// Second view.
 struct SecondView: View {
-    @StateObject private var searchByCityViewModel = SearchByCityViewModel()
+    @ObservedObject private var searchByCityViewModel = SearchByCityViewModel()
     @State private var isShowingWeatherSheet = false
     @State private var isShowAlert = false
-
     var body: some View {
         ZStack {
             Color.backgroundColorSecondView
@@ -40,6 +39,7 @@ struct SecondView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.white, lineWidth: 1))
+                // Showing alert if the city input field is empty.
                 .alert(isPresented: $isShowAlert) {
                     Alert(title: Text("Sorry!"), message: Text("Please enter the city"), dismissButton: .default(Text("OK")))}
                 ScrollView {
@@ -70,6 +70,7 @@ struct SecondView: View {
                             .background(Color.blue.opacity(0.5))
                             .cornerRadius(10)
                             .contextMenu {
+                                // Deleting the city.
                                 Button(action: {
                                     searchByCityViewModel.deleteCity(city: cityWeather)
                                     searchByCityViewModel.fetchWeatherData()
@@ -91,7 +92,7 @@ struct SecondView: View {
             WeatherSheetView(searchByCityViewModel: searchByCityViewModel)
         }
         .onAppear {
-            // При каждом появлении SecondView обновляем данные
+            // Every time SecondView appears, update the data.
             searchByCityViewModel.fetchWeatherData()
             searchByCityViewModel.objectWillChange.send()
         }

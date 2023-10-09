@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// Weather data by the city.
 struct CityNameWeatherData: Codable {
     let city: City
     let cod: String

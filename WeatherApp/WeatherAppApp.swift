@@ -11,6 +11,7 @@ import SwiftUI
 struct WeatherAppApp: App {
     var body: some Scene {
         WindowGroup {
+            // Strating the app from the Splash screen.
             SplashScreen()
         }
     }

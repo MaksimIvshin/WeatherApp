@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//Данные о текущей погоде
+// Curerent weather data.
 struct CurrentWeatherData: Codable {
     let weather: [Weather]
     let main: Main

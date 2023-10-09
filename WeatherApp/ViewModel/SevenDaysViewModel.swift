@@ -12,13 +12,13 @@ import Combine
 class SevenDaysViewModel: ObservableObject {
     let locationManager = LocationManager()
     let weatherDataManager = WeatherDataManager()
-    //Массив для хранения подписок. Хранит подписки на изменения location.
+    // Array for storing subscriptions. Stores subscriptions to location changes.
     var cancellables: Set<AnyCancellable> = []
-    //Данные о погоде будут автоматически обновляться при изменении значений.
+    // Weather data will be automatically updated when values change.
     @Published var weatherData: [List] = []
-    //Метод иницилизации класса
+    // Initialization and binding.
     init() {
-        //Отслеживаем изменения свойства location. Удаляем все значения nil. Устанавливаем подписку на изменения данных. Сохраняем подписки.
+        // Track the location. Remove all nil values. Set up a subscription to data changes. Save subscriptions.
         locationManager.$location
             .compactMap { $0 }
             .sink { [weak self] location in
@@ -26,14 +26,13 @@ class SevenDaysViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    //Метод запроса местоположения.
+    // Requesting a location.
     func requestLocation() {
         locationManager.requstLocation()
     }
-    //Метод для получения данных о погоде.
+    // Request weather data by the location for 7 days.
     func sevenDaysFetchWeather(forLocation location: CLLocation) {
         weatherDataManager.fetchSevenDaysWeather(forLocation: location) { [weak self] weatherData in
-            //Полученные данные будут присвоены weatherData и обновлены на главной очереди (т.к. UI).
             DispatchQueue.main.async {
                 self?.weatherData = weatherData?.list ?? []
             }

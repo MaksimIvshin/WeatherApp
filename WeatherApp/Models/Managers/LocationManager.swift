@@ -10,27 +10,25 @@ import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     let manager = CLLocationManager()
-    //Текущая локация. Cвойство является наблюдаемым и при изменении будет обновлять значение.
+    // Current location. The property is observable and will update the value when changed.
     @Published var location: CLLocation?
     override init() {
         super.init()
         manager.delegate = self
     }
+    // Request permission to use the location.
     func requstLocation() {
-        //Запрашиваем разрешение пользователя на использование локации.
         manager.requestWhenInUseAuthorization()
-        //Точность местоположения сто метров.
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        //Начало обновления локации.
         manager.startUpdatingLocation()
     }
-    //Метод делегата при оновлении локации сохраняет местоположение и останавливает обновление.
+    // When location updating, the delegate method saves the location.
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         self.location = location
         manager.stopUpdatingLocation()
     }
-    //Принтуем ошибку.
+    // Some error.
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }

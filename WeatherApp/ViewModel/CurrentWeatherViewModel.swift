@@ -12,9 +12,9 @@ import Combine
 class CurrentWeatherViewModel: ObservableObject {
     let locationManager = LocationManager()
     let weatherDataManager = WeatherDataManager()
-    //Массив для хранения подписок. Хранит подписки на изменения location.
+    // Array for storing subscriptions. Stores subscriptions to location changes.
     var cancellables: Set<AnyCancellable> = []
-    //Cвойства являются наблюдаемыми и при изменении будут обновляться значения.
+    // Published properties that will be tracked.
     @Published var temperature: String = "-"
     @Published var feelsLike: String = "-"
     @Published var windSpeed: String = "-"
@@ -24,9 +24,9 @@ class CurrentWeatherViewModel: ObservableObject {
     @Published var country: String = "-"
     @Published var description: String = "-"
     @Published var weatherIcon: String = Icons.defaultIcon
-    // делаем bind
+    // Initialization and binding.
     init() {
-        //Отслеживаем изменения свойства location. Удаляем все значения nil. Устанавливаем подписку на изменения данных. Сохраняем подписки.
+        // Track the location. Remove all nil values. Set up a subscription to data changes. Save subscriptions.
         locationManager.$location
             .compactMap { $0 }
             .sink { [weak self] location in
@@ -34,15 +34,14 @@ class CurrentWeatherViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    //Метод запроса местоположения.
+    // Requesting a location.
     func requestLocation() {
         locationManager.requstLocation()
     }
-    //Метод для получения данных о погоде.
+    // Request current weather data.
     func currentFetchWeather(forLocation location: CLLocation) {
         weatherDataManager.fetchCurrentWeather(forLocation: location) { [weak self] weatherData in
             DispatchQueue.main.async {
-                //Полученные данные будут присвоены свойствам и обновлены на главной очереди (т.к. UI).
                 self?.city = "\(weatherData?.name ?? "") \(weatherData?.sys.country ?? "")"
                 self?.temperature = "\(weatherData?.main.temp.roundDouble() ?? "")°"
                 self?.description = weatherData?.weather.first?.description.capitalized ?? ""
