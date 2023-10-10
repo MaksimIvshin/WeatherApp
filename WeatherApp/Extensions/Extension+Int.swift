@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// Rounding meters to kilometers.
 extension Int {
     func metersToKilometrs() -> Int {
         return Int(self) / 1000

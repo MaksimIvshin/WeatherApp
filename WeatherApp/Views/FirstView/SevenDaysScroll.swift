@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
-
+// View for displaying weather for 7 days.
 struct SevenDaysScroll: View {
     @ObservedObject var sevenDaysViewModel: SevenDaysViewModel
     var body: some View {
         VStack {
             Text("Weather forecast for 7 days")
             ScrollView(.horizontal, showsIndicators: false) {
-                //Ленивый стек для меньшей загрузки памяти. Вычисления - по мере отображения на экране.
+                //Lazy stack for less memory usage.
                 LazyHStack(spacing: 20) {
-                    //.id для для идентификации элементов в массиве.
+                    // Id for to identify elements in the array.
                     ForEach(sevenDaysViewModel.weatherData, id: \.dt) { weather in
                         VStack {
                             Date.isToday(date: weather.dt) ? Text("Today") : Text("\(Date.formattedDate(date: weather.dt))")

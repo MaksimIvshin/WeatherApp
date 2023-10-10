@@ -6,14 +6,12 @@
 //
 
 import SwiftUI
-
+// Main view of the app.
 struct FirstView: View {
-    //Создаем свойства и методы.
-    @StateObject private var currentViewModel = CurrentWeatherViewModel()
-    @StateObject private var sevenDaysViewModel = SevenDaysViewModel()
-    //Используется для отслеживания состояния сцены
+    @ObservedObject private var currentViewModel = CurrentWeatherViewModel()
+    @ObservedObject private var sevenDaysViewModel = SevenDaysViewModel()
+    // Track the state of the scene.
     @Environment(\.scenePhase) private var scenePhase
-
     var body: some View {
         ZStack {
             Color.backgroundColorFirstView
@@ -32,14 +30,11 @@ struct FirstView: View {
                 VStack{
                     HStack(spacing: 50) {
                         Image(systemName: "thermometer")
-                            .font(.system(size: 40))
                         Image(systemName: "wind")
-                            .font(.system(size: 40))
                         Image(systemName: "drop")
-                            .font(.system(size: 40))
                         Image(systemName: "eye")
-                            .font(.system(size: 40))
                     }
+                    .font(.system(size: 40))
                     .padding(10)
                     HStack(spacing: 50) {
                         Text("\(currentViewModel.feelsLike)")
@@ -54,17 +49,18 @@ struct FirstView: View {
                 Spacer()
             }
             .padding(.top, 100)
+            // View for displaying weather for 7 days.
             SevenDaysScroll(sevenDaysViewModel: sevenDaysViewModel)
                 .padding(.top, 600)
         }
         .ignoresSafeArea()
         .foregroundColor(.white)
-        //Действия выполняются при предствалении на экран.
+        // Every time SecondView appears, update the data.
         .onAppear {
             currentViewModel.requestLocation()
             sevenDaysViewModel.requestLocation()
         }
-        //Метод используется при изменении состояния сцены.
+        // The method is used when the scene state changes.
         .onChange(of: scenePhase) { newScenePhase in
             if newScenePhase == .active {
                 currentViewModel.requestLocation()

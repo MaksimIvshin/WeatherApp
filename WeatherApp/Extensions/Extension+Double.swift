@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//Расширение для округления чисел Double до 1 знака после точки и конвертации в String.
+// Rounding Double to Int and converting to String.
 extension Double {
     func roundDouble() -> String {
         return String(format: "%.0f", self)
