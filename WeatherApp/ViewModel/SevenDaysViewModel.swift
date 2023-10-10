@@ -10,8 +10,8 @@ import CoreLocation
 import Combine
 
 class SevenDaysViewModel: ObservableObject {
-    let locationManager = LocationManager()
-    let weatherDataManager = WeatherDataManager()
+    var locationManager = LocationManager()
+    var weatherDataManager = WeatherDataManager()
     // Array for storing subscriptions. Stores subscriptions to location changes.
     var cancellables: Set<AnyCancellable> = []
     // Weather data will be automatically updated when values change.
