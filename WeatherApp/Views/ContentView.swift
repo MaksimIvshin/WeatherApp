@@ -20,19 +20,6 @@ struct ContentView: View {
                     Image(systemName: "star.square")
                     Text("Favorite city")
                 }
-<<<<<<< HEAD
-//            Settings()
-//                .tabItem {
-//                    Image(systemName: "gear")
-//                    Text("Settings")
-//                }
-=======
-            //            Settings()
-            //                .tabItem {
-            //                    Image(systemName: "gear")
-            //                    Text("Settings")
-            //                }
->>>>>>> develop
         }.accentColor(Color.blue)
     }
 }
