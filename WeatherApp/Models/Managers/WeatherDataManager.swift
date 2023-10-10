@@ -21,7 +21,6 @@ class WeatherDataManager: ObservableObject {
         }
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard error == nil, let data = data else { return }
-            //Если нет ошибок декодируем и полученный ответ передаем в сomplition.
             let weather = try? JSONDecoder().decode(CurrentWeatherData.self, from: data)
             if let weather = weather {
                 compltion(weather)
