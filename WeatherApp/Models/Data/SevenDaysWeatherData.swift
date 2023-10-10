@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//Данные о погоде на 7 дней
+// Weather data for 7 days.
 struct SevenDaysWeatherData: Codable {
     let list: [List]
 }

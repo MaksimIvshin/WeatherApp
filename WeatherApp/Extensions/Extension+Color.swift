@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//Раширение градиентный цвет для главного экрана
+// Gradient color for the main screen.
 extension Color {
     static let backgroundColorFirstView = LinearGradient( colors: [.blue, Color("lightBlue")], startPoint: .topLeading, endPoint: .bottomTrailing)
     static let backgroundColorSecondView = LinearGradient(colors: [.blue,.blue, Color("lightBlue"),  .white], startPoint: .topLeading, endPoint: .bottomTrailing)

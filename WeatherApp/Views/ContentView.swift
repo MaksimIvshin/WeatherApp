@@ -6,11 +6,8 @@
 //
 
 import SwiftUI
-
+// TabView for the navigation in the app.
 struct ContentView: View {
-
-
-
     var body: some View {
         TabView{
             FirstView()
@@ -23,11 +20,19 @@ struct ContentView: View {
                     Image(systemName: "star.square")
                     Text("Favorite city")
                 }
+<<<<<<< HEAD
 //            Settings()
 //                .tabItem {
 //                    Image(systemName: "gear")
 //                    Text("Settings")
 //                }
+=======
+            //            Settings()
+            //                .tabItem {
+            //                    Image(systemName: "gear")
+            //                    Text("Settings")
+            //                }
+>>>>>>> develop
         }.accentColor(Color.blue)
     }
 }
