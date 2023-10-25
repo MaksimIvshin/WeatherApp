@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SearchByCityViewModel: ObservableObject {
+final class SearchByCityViewModel: ObservableObject {
     // Published properties that will be tracked.
     @Published var cityName: String = ""
     @Published var tempMax: String = "-"
@@ -38,7 +38,7 @@ class SearchByCityViewModel: ObservableObject {
         }
     }
     // Update weather data in CoreData.
-    func updateCityWeatherData() {
+    private func updateCityWeatherData() {
         let existingCities = coreDataManager.getAllCity()
         // Create a DispatchGroup to wait for all async requests to complete.
         let dispatchGroup = DispatchGroup()

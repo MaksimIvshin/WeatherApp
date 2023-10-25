@@ -8,8 +8,8 @@
 import Foundation
 import CoreLocation
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    let manager = CLLocationManager()
+final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    private let manager = CLLocationManager()
     // Current location. The property is observable and will update the value when changed.
     @Published var location: CLLocation?
     override init() {

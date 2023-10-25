@@ -9,7 +9,7 @@ import SwiftUI
 // Additional information sheet.
 struct WeatherSheetView: View {
     @ObservedObject var searchByCityViewModel: SearchByCityViewModel
-    @EnvironmentObject var coreDataManager: CoreDataManager
+    @EnvironmentObject private var coreDataManager: CoreDataManager
     // Property for closing sheet.
     @Environment(\.presentationMode) var presentationMode
     var body: some View {

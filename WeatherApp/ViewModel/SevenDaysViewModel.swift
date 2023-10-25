@@ -9,11 +9,11 @@ import Foundation
 import CoreLocation
 import Combine
 
-class SevenDaysViewModel: ObservableObject {
-    var locationManager = LocationManager()
-    var weatherDataManager = WeatherDataManager()
+final class SevenDaysViewModel: ObservableObject {
+    private var locationManager = LocationManager()
+    private var weatherDataManager = WeatherDataManager()
     // Array for storing subscriptions. Stores subscriptions to location changes.
-    var cancellables: Set<AnyCancellable> = []
+    private var cancellables: Set<AnyCancellable> = []
     // Weather data will be automatically updated when values change.
     @Published var weatherData: [List] = []
     // Initialization and binding.
@@ -31,7 +31,7 @@ class SevenDaysViewModel: ObservableObject {
         locationManager.requstLocation()
     }
     // Request weather data by the location for 7 days.
-    func sevenDaysFetchWeather(forLocation location: CLLocation) {
+    private func sevenDaysFetchWeather(forLocation location: CLLocation) {
         weatherDataManager.fetchSevenDaysWeather(forLocation: location) { [weak self] weatherData in
             DispatchQueue.main.async {
                 self?.weatherData = weatherData?.list ?? []

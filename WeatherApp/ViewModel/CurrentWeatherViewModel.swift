@@ -9,11 +9,11 @@ import Foundation
 import CoreLocation
 import Combine
 
-class CurrentWeatherViewModel: ObservableObject {
-    let locationManager = LocationManager()
-    let weatherDataManager = WeatherDataManager()
+final class CurrentWeatherViewModel: ObservableObject {
+    private let locationManager = LocationManager()
+    private let weatherDataManager = WeatherDataManager()
     // Array for storing subscriptions. Stores subscriptions to location changes.
-    var cancellables: Set<AnyCancellable> = []
+    private var cancellables: Set<AnyCancellable> = []
     // Published properties that will be tracked.
     @Published var temperature: String = "-"
     @Published var feelsLike: String = "-"
@@ -39,7 +39,7 @@ class CurrentWeatherViewModel: ObservableObject {
         locationManager.requstLocation()
     }
     // Request current weather data.
-    func currentFetchWeather(forLocation location: CLLocation) {
+    private func currentFetchWeather(forLocation location: CLLocation) {
         weatherDataManager.fetchCurrentWeather(forLocation: location) { [weak self] weatherData in
             DispatchQueue.main.async {
                 self?.city = "\(weatherData?.name ?? "") \(weatherData?.sys.country ?? "")"

@@ -8,9 +8,9 @@
 import Foundation
 import CoreData
 
-class CoreDataManager: ObservableObject {
+final class CoreDataManager: ObservableObject {
     // Create the database property CoreData.
-    let persistentContainer: NSPersistentContainer
+    private let persistentContainer: NSPersistentContainer
     // Initialize CoreDataManager and load database storage.
     init() {
         persistentContainer = NSPersistentContainer(name: "CityWeatherDataModel")
